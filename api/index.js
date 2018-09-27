@@ -5,7 +5,7 @@ const app = express();
 
 const apiKey = process.env.MG_API;
 const domain = process.env.MG_DOMAIN;
-const email = process.env.MG_EMAIL;
+const mailList = process.env.MG_EMAIL;
 
 
 const mg = Mailgun({ apiKey, domain });
@@ -26,7 +26,7 @@ app.post('/send', (req, res) => {
   const { name, email, subject, message } = form;
   const data = {
     from: `${name} <${email}>`,
-    to: 'evanpowellmusic@gmail.com',
+    to: mailList,
     subject,
     text: message
   };
