@@ -157,6 +157,7 @@
     &__message {
       min-height: 30rem;
       max-width: 100%;
+      min-width: 100%;
       font-family: inherit;
       font-size: inherit;
     }
