@@ -93,6 +93,7 @@
         })
           .then(() => {
             this.isSuccess = true;
+            this.error = '';
             this.sendForm.name = '';
             this.sendForm.email = '';
             this.sendForm.subject = '';
