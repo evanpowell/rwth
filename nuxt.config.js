@@ -1,4 +1,6 @@
-const pkg = require('./package')
+require('dotenv').config()
+
+const pkg = require('./package');
 
 module.exports = {
   mode: 'universal',

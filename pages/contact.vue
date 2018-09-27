@@ -16,11 +16,6 @@
       <div class="contact-form__group">
         <label for="email">
           Your Email
-          <span
-            v-if="emailIsInvalid"
-            class="inValidEmail">
-            Please enter a valid email
-          </span>
         </label>
         <input
           id="email"
@@ -50,11 +45,22 @@
         type="submit"
         class="contact-form__submit"
         value="Send">
-      <span
-        v-if="isIncomplete"
-        class="incomplete">
-        Please fill in all fields
-      </span>
+      <div
+        v-if="error !== ''"
+        class="form-sent form-sent__error">
+        <span>
+          Error:
+        </span>
+        {{ error }}
+      </div>
+      <div
+        v-if="isSuccess"
+        class="form-sent form-sent__success">
+        <span>
+          Thank you!
+        </span>
+        We'll get back to you shortly. :)
+      </div>
     </form>
   </div>
 </template>
@@ -71,9 +77,8 @@
           subject: '',
           message: ''
         },
-        emailIsInvalid: false,
-        isIncomplete: false,
-        isError: false
+        error: '',
+        isSuccess: false,
       }
     },
     methods: {
@@ -86,30 +91,25 @@
             sendForm: this.sendForm
           }
         })
-          .then((res) => {
-            console.log('success', res.data);
+          .then(() => {
+            this.isSuccess = true;
+            this.sendForm.name = '';
+            this.sendForm.email = '';
+            this.sendForm.subject = '';
+            this.sendForm.message = '';
           })
           .catch((err) => {
-            console.log(err);
+            const { data } = err.response;
+            if (data === 'incomplete') {
+              this.error = 'Some fields were recognized as incomplete';
+            } else if (data === 'invalidEmail') {
+              this.error = 'Your email was recognized as invalid';
+            } else {
+              this.error = 'Something went wrong'
+            }
           });
       }
     }
-    // created() {
-
-    //   axios({
-    //     url: '/api/send', 
-    //     method: 'post',
-    //     params: {
-    //       message: 'HEY'
-    //     }
-    //   })
-    //     .then((res) => {
-    //       console.log('success', res.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }
   }
 </script>
 
@@ -117,7 +117,7 @@
   @import '../assets/scss/variables.scss';
 
   .contact-input {
-    border: 1px solid transparent;
+    border: 1.5px solid transparent;
     border-radius: 3px;
     width: 100%;
     padding: 6px 8px;
@@ -126,7 +126,7 @@
 
     &:focus {
       outline: none;
-      border: 1px solid $color-grey;
+      border: 1.5px solid $color-primary-light;
     }
   }
 
@@ -171,7 +171,7 @@
       background-color: $color-secondary;
       color: $color-white;
       box-shadow: 0 2px 4px 2px rgba($color-black, 0.2);
-      transition: .2s ease;
+      transition: .1s ease;
       backface-visibility: hidden;
 
       &:hover {
@@ -179,6 +179,32 @@
         box-shadow: 0 3px 8px 2px rgba($color-black, 0.2);
         cursor: pointer;
       }
+
+      &:active {
+        transform: translateY(-3px);
+        box-shadow: 0 3px 6px 2px rgba($color-black, 0.2);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .form-sent {
+    display: inline-block;
+    padding-left: 2rem;
+    
+    & span {
+      font-weight: 700;
+    }
+
+    &__error {
+      color: $color-alert;
+    }
+
+    &__success {
+      color: $color-primary-light;
     }
   }
 </style>

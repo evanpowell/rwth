@@ -60,6 +60,7 @@ html
 
 body {
   font-size: 1.6rem;
+  color: $color-charcoal;
   box-sizing: border-box;
 }
 
