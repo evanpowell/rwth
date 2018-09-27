@@ -6,6 +6,7 @@ const app = express();
 const apiKey = process.env.MG_API;
 const domain = process.env.MG_DOMAIN;
 const mailList = process.env.MG_EMAIL;
+const calendarID = process.env.CALENDAR_ID;
 
 
 const mg = Mailgun({ apiKey, domain });
@@ -39,6 +40,10 @@ app.post('/send', (req, res) => {
     }
   })
 });
+
+app.get('/shows', (req, res) => {
+  // get info on public shows from Google Calendar API
+})
 
 module.exports = {
   path: '/api',

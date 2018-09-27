@@ -184,6 +184,7 @@
 
       &:active {
         transform: translateY(-3px);
+        background-color: $color-secondary-dark;
         box-shadow: 0 3px 6px 2px rgba($color-black, 0.2);
       }
 
