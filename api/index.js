@@ -1,49 +1,23 @@
 const express = require('express');
-const Mailgun = require('mailgun-js');
+
+const { sendContactForm, getShows } = require('./helpers');
 
 const app = express();
 
-const apiKey = process.env.MG_API;
-const domain = process.env.MG_DOMAIN;
-const mailList = process.env.MG_EMAIL;
-const calendarID = process.env.CALENDAR_ID;
-
-
-const mg = Mailgun({ apiKey, domain });
-
 app.post('/send', (req, res) => {
-  const form = JSON.parse(req.query.sendForm);
-  console.log(typeof form);
-  for(let key in form) {
-    if (!form[key]) {
-      res.status(400).send('incomplete');
-    }
-  }
-
-  if(!form.email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)) {
-    res.status(400).send('invalidEmail');
-  }
-
-  const { name, email, subject, message } = form;
-  const data = {
-    from: `${name} <${email}>`,
-    to: mailList,
-    subject,
-    text: message
-  };
-
-  mg.messages().send(data, (err, body) => {
-    if (err) {
-      res.status(500).send('mailgunError');
-    } else {
+  sendContactForm(req.query.sendForm)
+    .then(() => {
       res.send('success');
-    }
-  })
+    })
+    .catch(({ statusCode, message }) => {
+      res.status(statusCode).send(message);
+    });
 });
 
-app.get('/shows', (req, res) => {
-  // get info on public shows from Google Calendar API
-})
+app.get('/shows', async (req, res) => {
+  let shows = await getShows();
+  res.send(shows);
+});
 
 module.exports = {
   path: '/api',
