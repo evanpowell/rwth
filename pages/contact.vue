@@ -67,6 +67,12 @@
 
 <script>
   export default {
+    asyncData({ req }) {
+      console.log('req', !!req)
+      const host = req ? req.headers.host : window.location.host;
+      console.log('host', host);
+      return { host };
+    },
     data () {
       return {
         sendForm: {
@@ -82,8 +88,9 @@
     methods: {
       send(event) {
         event.preventDefault();
+        console.log('host in methods', this.host)
         this.$axios({
-          url: '/api/send', 
+          url: `http://${this.host}/api/send`, 
           method: 'post',
           params: {
             sendForm: this.sendForm

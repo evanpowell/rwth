@@ -41,20 +41,23 @@
 
 <script>
   export default {
+    asyncData({ req, app }) {
+      console.log('req', !!req);
+      const host = req ? req.headers.host : window.location.host;
+      console.log('host', host);
+      return app.$axios.$get(`http://${host}/api/shows`)
+        .then((shows) => {
+          return { shows };
+        })
+        .catch((err) => {
+          return { error: true }
+        })
+    },
     data() {
       return {
         shows: [],
         error: false,
       };
-    },
-    created() {
-      this.$axios.$get('/api/shows')
-        .then((res) => {
-          this.shows = res;
-        })
-        .catch((err) => {
-          this.error = true;
-        })
     }
   }
 </script>
