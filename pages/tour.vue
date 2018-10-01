@@ -40,22 +40,21 @@
 </template>
 
 <script>
-  import axios from 'axios'
-
   export default {
     data() {
       return {
-        shows: []
-      }
+        shows: [],
+        error: false,
+      };
     },
     created() {
-      axios.get('/api/shows')
-        .then(({ data }) => {
-          this.shows = data;
+      this.$axios.$get('/api/shows')
+        .then((res) => {
+          this.shows = res;
         })
         .catch((err) => {
-          console.log(err.message);
-        });
+          this.error = true;
+        })
     }
   }
 </script>

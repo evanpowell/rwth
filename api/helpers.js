@@ -1,56 +1,27 @@
-const Mailgun = require('mailgun-js');
-const { google } = require('googleapis');
-const axios = require('axios');
+const mailList = process.env.MG_EMAIL;
 
-const {
-  MG_API: mgApiKey,
-  MG_DOMAIN: domain,
-  MG_EMAIL: mailList,
-  CAL_ID: calendarId,
-  GCAL_API: gcalApiKey
-} = process.env;
+const validateForm = (req, res, next) => {
+  const form = JSON.parse(req.query.sendForm);
+  const { name, email, subject, message } = form;
 
-const mg = Mailgun({ apiKey: mgApiKey, domain });
-
-const sendContactForm = (contactForm) => {
-  const form = JSON.parse(contactForm);
-  return new Promise((resolve, reject) => {
-    for(let key in form) {
-      if(form[key] === '') {
-        reject({
-          statusCode: 400,
-          message: 'incomplete'
-        });
-      }
+  for (let key in form) {
+    if(form[key] === '') {
+      return res.status(400).send('incomplete');
     }
+  }
 
-    const { name, email, subject, message } = form;
+  if (!email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)) {
+    return res.status(400).send('invalidEmail');
+  }
 
-    if(!email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)) {
-      reject({
-        statusCode: 400,
-        message: 'invalidEmail'
-      });
-    }
-
-    const data = {
-      from: `${name} <${email}>`,
-      to: mailList,
-      subject,
-      text: message
-    };
-
-    mg.messages().send(data, (err, body) => {
-      if (err) {
-        reject({
-          statusCode: 400,
-          message: 'mailgunError'
-        });
-      } else {
-        resolve();
-      }
-    });
-  });
+  req.contactForm = {
+    from: `${name} <${email}>`,
+    to: mailList,
+    subject,
+    text: message
+  };
+  
+  next();
 };
 
 const formatDateTime = (dateTime) => {
@@ -89,25 +60,12 @@ const formatDateTime = (dateTime) => {
   }
 }
 
-const getCalendarEvents = async () => {
-  let eventsObj = await axios({
-    url: `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`,
-    method: 'get',
-    params: {
-      key: gcalApiKey,
-      singleEvents: true,
-      orderBy: 'startTime',
-      timeMin: new Date().toISOString()
-    }
-  });
-  return eventsObj.data.items;
-};
-
-const getShows = async () => {
-  let events = await getCalendarEvents();
-  let shows = events.map(({ summary, location, description, start }) => {
+const getShows = (cal) => {
+  return Object.entries(cal).filter(([key, { start }]) => {
+    return new Date(start).valueOf() > Date.now();
+  }).map(([key, { summary, location, start, description }]) => {
+    const { date, time } = formatDateTime(start);
     const { venue, link } = JSON.parse(description);
-    const { date, time } = formatDateTime(start.dateTime || start.date);
     return {
       title: summary,
       location,
@@ -116,11 +74,10 @@ const getShows = async () => {
       venue,
       link
     }
-  });
-  return shows;
+  }).reverse();
 };
 
 module.exports = {
-  sendContactForm,
+  validateForm,
   getShows
 };

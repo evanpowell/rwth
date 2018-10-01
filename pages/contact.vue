@@ -66,8 +66,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
-
   export default {
     data () {
       return {
@@ -84,7 +82,7 @@
     methods: {
       send(event) {
         event.preventDefault();
-        axios({
+        this.$axios({
           url: '/api/send', 
           method: 'post',
           params: {
