@@ -49,7 +49,7 @@
         socials: [
           { icon: ['fab', 'youtube'], link: 'https://www.youtube.com'},
           { icon: ['fab', 'instagram'], link: 'https://www.instagram.com'},
-          { icon: ['fab', 'facebook'], link: 'https://www.facebook.com'}
+          { icon: ['fab', 'facebook'], link: 'https://www.facebook.com/Run-with-the-Hare-533410613772626/'}
         ]
       }
     },

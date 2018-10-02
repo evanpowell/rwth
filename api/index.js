@@ -14,9 +14,7 @@ const { validateForm, getShows } = require('./helpers');
 
 const app = express();
 
-app.use('/send', validateForm);
-
-app.post('/send', (req, res) => {
+app.post('/send', validateForm, (req, res) => {
   mg.messages().send(req.contactForm, (err, body) => {
     if (err) {
       return res.status(500).send('mailgunError');

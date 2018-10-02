@@ -2,49 +2,33 @@
   <div>
     <h1 class="title">Tour</h1>
     <div class="shows">
-      <ul class="shows__list">
-        <li
+      <ul
+        v-if="shows.length"
+        class="shows__list">
+        <tour-list-entry
           v-for="show in shows"
           :key="show.id"
-          class="shows__list-entry">
-          <div class="shows__list-entry--main">
-            <div class="date-time">
-              <div class="date-time__date">
-                <p>{{ show.date }}</p>
-              </div>
-              <div class="time">
-                <p>{{ show.time }}</p>
-              </div>
-            </div>     
-            <div class="venue">
-              <a 
-                :href="show.link"
-                target="_blank"
-                class="venue--link">
-                {{ show.venue }}
-              </a>
-            </div>
-            <div class="info">
-              <a 
-                :href="show.link"
-                target="_blank"
-                class="info--link">
-                More Info
-              </a>
-            </div>
-          </div>
-        </li>
+          :show="show"/>
       </ul>
+      <div
+        v-else
+        class="shows__empty">
+        <h3>No Upcoming Shows</h3>
+        <p>There are currently no upcoming shows, but stay tuned!</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import TourListEntry from '../components/TourListEntry.vue';
+
   export default {
+    components: {
+      TourListEntry
+    },
     asyncData({ req, app }) {
-      console.log('req', !!req);
       const host = req ? req.headers.host : window.location.host;
-      console.log('host', host);
       return app.$axios.$get(`http://${host}/api/shows`)
         .then((shows) => {
           return { shows };
@@ -56,6 +40,7 @@
     data() {
       return {
         shows: [],
+
         error: false,
       };
     }
@@ -85,6 +70,49 @@
         display: flex;
         justify-content: space-between;
         padding: 1rem 2rem;
+      }
+
+      &--info {
+        padding: 0 2rem 1rem 2rem;
+      }
+    }
+
+    &__empty {
+      text-align: center;
+
+      & > h3 {
+        padding-bottom: 2rem;
+      }
+    }
+  }
+
+  .info {
+
+    &--btn {
+      text-transform: uppercase;
+      padding: .5rem 1rem;
+      font-weight: bold;
+      width: 6rem;
+      border: none;
+      border-radius: 3px;
+      background-color: $color-primary-light;
+      color: $color-white;
+      box-shadow: 0 2px 4px 2px rgba($color-black, 0.2);
+      transition: .15s ease;
+      backface-visibility: hidden;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $color-primary-lighter;
+      }
+
+      &:active {
+        background-color: $color-primary;
+        box-shadow: 0 3px 6px 2px rgba($color-black, 0.2);
+      }
+
+      &:focus {
+        outline: none;
       }
     }
   }
