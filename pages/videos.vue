@@ -27,6 +27,8 @@
   import VideoPlayer from '../components/VideoPlayer.vue';
   import VideoListEntry from '../components/VideoListEntry.vue';
 
+  import { youtubeApiKey } from '../assets/js/apiConfig.js';
+
   export default {
     components: {
       VideoPlayer,
@@ -40,11 +42,9 @@
       }
     },
     asyncData({ env, app }) {
-      console.log('process.env.youtubeApiKey', !!process.env.youtubeApiKey);
-      console.log('env.youtubeApiKey', !!env.youtubeApiKey);
       const config = {
         params: {
-          key: process.env.youtubeApiKey,
+          key: youtubeApiKey,
           part: 'snippet',
           playlistId: 'PLA-O7ltnqYy3DEeFbenWQohxNqdx2HoU4',
           maxResults: 10
