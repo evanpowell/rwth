@@ -40,9 +40,11 @@
       }
     },
     asyncData({ env, app }) {
+      console.log('process.env.youtubeApiKey', !!process.env.youtubeApiKey);
+      console.log('env.youtubeApiKey', !!env.youtubeApiKey);
       const config = {
         params: {
-          key: env.youtubeApiKey,
+          key: process.env.youtubeApiKey,
           part: 'snippet',
           playlistId: 'PLA-O7ltnqYy3DEeFbenWQohxNqdx2HoU4',
           maxResults: 10
