@@ -40,7 +40,6 @@
     data() {
       return {
         shows: [],
-
         error: false,
       };
     }
@@ -53,6 +52,7 @@
   .shows {
     width: 80rem;
     max-width: 100%;
+    margin: 0 auto;
     padding: 3rem 5rem;
 
     &__list-entry {

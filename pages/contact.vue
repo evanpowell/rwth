@@ -136,6 +136,7 @@
   .contact-form {
     width: 80rem;
     max-width: 100%;
+    margin: 0 auto;
     font-size: 1.8rem;
     padding: 3rem 5rem;
     background-color: $color-grey-light;

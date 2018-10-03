@@ -77,6 +77,7 @@ body {
 
 .container {
   max-width: 100rem;
+  width: 100%;
 }
 
 .title {
