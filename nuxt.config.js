@@ -38,10 +38,6 @@ module.exports = {
     { src: '~/plugins/font-awesome' }
   ],
 
-  env: {
-    youtubeApiKey: process.env.YOUTUBE_API,
-  },
-
   /*
   ** Nuxt.js modules
   */

@@ -1,11 +1,13 @@
 const express = require('express');
 const { fromURL } = require('ical');
 const Mailgun = require('mailgun-js');
+const axios = require('axios');
 
 const {
   MG_API,
   MG_DOMAIN,
-  CAL_URL
+  CAL_URL,
+  YOUTUBE_API
 } = process.env;
 
 const mg = Mailgun({ apiKey: MG_API, domain: MG_DOMAIN });
@@ -32,6 +34,24 @@ app.get('/shows', (req, res) => {
     res.send(shows);
   });
 });
+
+app.get('/videos', (req, res) => {
+  const config = {
+    params: {
+      key: YOUTUBE_API,
+      part: 'snippet',
+      playlistId: 'PLA-O7ltnqYy3DEeFbenWQohxNqdx2HoU4',
+      maxResults: 25
+    }
+  };
+  axios.get('https://www.googleapis.com/youtube/v3/playlistItems', config)
+    .then(({data}) => {
+      res.send(data.items)
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+})
 
 module.exports = {
   path: '/api',

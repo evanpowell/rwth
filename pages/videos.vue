@@ -27,8 +27,6 @@
   import VideoPlayer from '../components/VideoPlayer.vue';
   import VideoListEntry from '../components/VideoListEntry.vue';
 
-  import { youtubeApiKey } from '../assets/js/apiConfig.js';
-
   export default {
     components: {
       VideoPlayer,
@@ -41,20 +39,13 @@
         autoplay: false
       }
     },
-    asyncData({ env, app }) {
-      const config = {
-        params: {
-          key: youtubeApiKey,
-          part: 'snippet',
-          playlistId: 'PLA-O7ltnqYy3DEeFbenWQohxNqdx2HoU4',
-          maxResults: 10
-        }
-      };
-      return app.$axios.$get('https://www.googleapis.com/youtube/v3/playlistItems', config)
-        .then((data) => {
+    asyncData({ req, app }) {
+      const host = req ? req.headers.host : window.location.host;
+      return app.$axios.$get(`http://${host}/api/videos`)
+        .then((videos) => {
           return {
-            videos: data.items,
-            activeVideo: data.items[0]
+            videos,
+            activeVideo: videos[0]
           };
         })
         .catch((err) => {
