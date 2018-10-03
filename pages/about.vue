@@ -4,16 +4,11 @@
     <div class="main-image"/>
     <div class="about">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Leo duis
-        ut diam quam nulla. Risus at ultrices mi tempus imperdiet nulla
-        malesuada. Nullam non nisi est sit amet facilisis magna etiam tempor.
-        Leo integer malesuada nunc vel risus commodo viverra maecenas. Et
-        egestas quis ipsum suspendisse ultrices gravida dictum fusce. Faucibus
-        interdum posuere lorem ipsum dolor sit amet consectetur.
-        Mauris commodo quis imperdiet massa. Tortor at auctor urna nunc id
-        cursus metus aliquam. Et netus et malesuada fames ac turpis egestas.
-        Velit dignissim sodales ut eu.
+        <span class="accent large">Run with the Hare</span>
+        is a traditional Irish music trio based in Austin, Texas. The band includes
+        <span class="accent">Nicolle Fig</span> (song, bodhrán, button accordion),
+        <span class="accent">Jonathan Milton</span>  (flute, pipes, guitar), and
+        <span class="accent">Evan Powell</span> (piano, flute). Their love for the music and decades of combined experience forge a sound that is full of joy, power, and grace. 
       </p>
     </div>
     <div class="members">
@@ -127,5 +122,14 @@
     &__name {
       padding-bottom: 3rem;
     }
+  }
+
+  .accent {
+    font-weight: 700;
+  }
+
+  .large {
+    font-size: 120%;
+    color: $color-primary;
   }
 </style>

@@ -20,7 +20,7 @@ export default {
     return {
       title: 'Run with the Hare',
     }
-  }
+  },
 };
 </script>
 
@@ -70,14 +70,19 @@ body {
   right: 0;
   min-height: 100vh;
   padding: 3rem 5%;
-  display: flex;
-  justify-content: center;
   background-color: $color-offwhite;
+
+  @include respond(tab-port) {
+    position: relative;
+    left: 0;
+    top: 4rem;
+  }
 }
 
 .container {
   max-width: 100rem;
   width: 100%;
+  margin: 0 auto;
 }
 
 .title {

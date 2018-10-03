@@ -41,12 +41,12 @@ app.get('/videos', (req, res) => {
       key: YOUTUBE_API,
       part: 'snippet',
       playlistId: 'PLA-O7ltnqYy3DEeFbenWQohxNqdx2HoU4',
-      maxResults: 25
+      maxResults: 10
     }
   };
   axios.get('https://www.googleapis.com/youtube/v3/playlistItems', config)
     .then(({data}) => {
-      res.send(data.items)
+      res.send(data.items);
     })
     .catch((err) => {
       res.status(500).send(err);
