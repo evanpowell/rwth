@@ -40,7 +40,7 @@ app.get('/videos', (req, res) => {
     params: {
       key: YOUTUBE_API,
       part: 'snippet',
-      playlistId: 'PLA-O7ltnqYy3DEeFbenWQohxNqdx2HoU4',
+      playlistId: 'UUZ9ZJxRri6B6mqAdIEliJAA',
       maxResults: 10
     }
   };

@@ -1,8 +1,6 @@
 <template>
   <div>
     <h1 class="title">Videos</h1>
-    <p style="color: orangered;">*NOTE: The current playlist is not of Run with the Hare.</p>
-    <p style="padding-bottom: 2rem;">It is merely a placeholder while our website is under construction.</p>
     <div
       v-if="videos.length"
       class="videos">
@@ -67,7 +65,7 @@
   .list {
     background-color: $color-grey-light;
     border-radius: 3px;
-    height: 40rem;
+    max-height: 40rem;
     overflow: hidden;
     overflow-y: auto;
     
