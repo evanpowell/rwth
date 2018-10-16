@@ -60,6 +60,13 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+      config.module.rules.push({
+        test: /\.mp3$/,
+        loader: 'url-loader',
+        options: {
+          limit: 100000
+        }
+      });
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({

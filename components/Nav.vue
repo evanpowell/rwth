@@ -116,7 +116,6 @@
     methods: {
       toggleActive() {
         this.isActive = !this.isActive;
-        console.log('active', this.active);
       },
       forceInactive() {
         if (window.innerWidth >= 900) {
@@ -360,7 +359,7 @@
     }
 
     &__box {
-      position: absolute;
+      position: fixed;
       top: 5rem;
       height: calc(100vh - 5rem);
       transform: translateY(-100%);
