@@ -202,7 +202,7 @@
   .music-player {
     background-color: $color-white;
     padding: 2rem 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
     border-radius: 3px;
     box-shadow: 0 3px 6px rgba($color-black, .15);
   }
