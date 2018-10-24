@@ -360,21 +360,23 @@
 
     &__box {
       position: fixed;
-      top: 5rem;
+      bottom: calc(100vh - 5rem);
       height: calc(100vh - 5rem);
-      transform: translateY(-100%);
       width: 100%;
       background-color: $color-primary-light;
       z-index: 100;
       transition: all .3s ease;
+      overflow: scroll;
     }
     
     &__box.active {
-      transform: translateY(0%);
+      transform: translateY(100%);
     }
 
     &__menu {
-      @include absoluteCenter;
+      @media (min-height: 31.25em) { //500px
+        @include absoluteCenter;;
+      }
 
       width: 100%;
 
