@@ -374,8 +374,16 @@
     }
 
     &__menu {
-      @media (min-height: 31.25em) { //500px
-        @include absoluteCenter;;
+      @include absoluteCenter;
+
+      &--main {
+        @media (max-height: 31.2499em) {
+          display: inline-flex;
+          width: 100%;
+          padding: 2rem 3rem;
+          justify-content: space-between;
+          flex-wrap: wrap;
+        }
       }
 
       width: 100%;
@@ -384,6 +392,11 @@
         list-style: none;
         text-align: center;
         width: 100%;
+
+        @media (max-height: 31.2499em) {
+          width: auto;
+          margin: 0 2rem;
+        }
 
         &:not(:last-child) {
           margin-bottom: 2rem;
@@ -401,12 +414,13 @@
         transition: all .15s;
 
         &:hover {
-          font-weight: 700;
+          color: $color-grey-light;
         }
 
         &.nuxt-link-exact-active {
           font-weight: 700;
-          background-color: #294437;
+          color: $color-secondary;
+          text-shadow: 0 3px 5px rgba($color-black, 0.4);
         }
       }
     }

@@ -87,6 +87,7 @@
 
       &--title {
         font-size: 2rem;
+        transition: all .15s;
       }
 
       &:hover {
@@ -94,7 +95,6 @@
       }
 
       &:hover &--title {
-        font-weight: 700;
         color: $color-primary-light;
       }
     }

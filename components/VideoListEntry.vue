@@ -52,12 +52,15 @@
 <style lang="scss" scoped>
   @import '../assets/scss/variables.scss';
 
+  .video-title {
+    transition: all .15s;
+  }
+
   li:hover {
     cursor: pointer;
 
     & .video-title {
       color: $color-primary-light;
-      font-weight: 700;
     }
   }
 
