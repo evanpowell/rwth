@@ -112,7 +112,7 @@
 
         const percent = `${newVolume}%`
         const slider = document.getElementById('volume-input');
-        slider.style.background = `linear-gradient(to right, #777, #777 ${percent}, #ddd ${percent}, #ddd 100%`;
+        slider.style.background = `linear-gradient(to right, #ddd, #ddd ${percent}, #282828 ${percent}, #282828 100%`;
       },
       tune() {
         this.music.pause();
@@ -207,7 +207,8 @@
     padding: 2rem 3rem;
     margin-bottom: 4rem;
     border-radius: 3px;
-    box-shadow: 0 3px 6px rgba($color-black, .15);
+    background: linear-gradient($color-secondary, $color-secondary 30%, $color-secondary-dark 100%);
+    box-shadow: 0 3px 6px rgba($color-black, .25);
   }
 
   .player {
@@ -233,12 +234,12 @@
       &--icon {
         width: 2rem;
         height: 2rem;
-        color: $color-grey;
+        color: $color-grey-light;
         transition: all .15s;
       }
 
       &:hover &--icon {
-        color: $color-primary-lighter;
+        color: $color-offwhite;
       }
     }
 
@@ -257,14 +258,19 @@
 
     &__playhead {
       height: 1rem;
-      background-color: $color-primary-lighter;
-      position: relative;
+      background-color: $color-primary;
+      // position: relative;
     }
+  }
+
+  .time {
+    color: $color-grey-light;
   }
 
   .music-title {
     font-size: 4rem;
-    color: $color-grey;
+    letter-spacing: 1px;
+    color: $color-grey-light;
     padding-bottom: 2rem;
   }
 
@@ -280,7 +286,7 @@
       appearance: none;
       width: 100%;
       height: .4rem;
-      background: linear-gradient(to right, $color-grey, $color-grey 75%, $color-grey-light 75%, $color-grey-light 100%);
+      background: linear-gradient(to right, $color-grey-light, $color-grey-light 75%, $color-charcoal 75%, $color-charcoal 100%);
       border-radius: 200rem;
 
       &:hover {
@@ -296,7 +302,7 @@
         appearance: none;
         width: 1.1rem;
         height: 1.1rem;
-        background-color: $color-grey;
+        background-color: $color-grey-light;
         border-radius: 50%;
       }
 
@@ -304,7 +310,7 @@
         appearance: none;
         width: 1.1rem;
         height: 1.1rem;
-        background-color: $color-grey;
+        background-color: $color-grey-light;
         border-radius: 50%;
       }
     }
