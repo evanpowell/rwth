@@ -30,7 +30,6 @@
 <script>
   import TourListEntry from '../components/TourListEntry.vue';
   import Spinner from '../components/Spinner.vue';
-  import axios from 'axios';
 
   export default {
     components: {
@@ -52,9 +51,9 @@
       };
     },
     created() {
-      axios.get(this.apiUrl)
-        .then(({ data }) => {
-          this.shows = data;
+      this.$axios.$get(this.apiUrl)
+        .then((shows) => {
+          this.shows = shows;
           this.isLoaded = true;
         })
         .catch((err) => {

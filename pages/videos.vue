@@ -27,8 +27,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
-
   import VideoPlayer from '../components/VideoPlayer.vue';
   import VideoListEntry from '../components/VideoListEntry.vue';
   import Spinner from '../components/Spinner.vue';
@@ -56,10 +54,10 @@
       };
     },
     created() {
-      axios.get(this.apiUrl)
-        .then(({ data }) => {
-          this.videos = data;
-          this.activeVideo = data[0];
+      this.$axios.$get(this.apiUrl)
+        .then((videos) => {
+          this.videos = videos;
+          this.activeVideo = videos[0];
           this.isLoaded = true;
         })
         .catch((err) => {
