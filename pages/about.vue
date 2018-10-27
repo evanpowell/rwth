@@ -158,6 +158,7 @@
       border-radius: 3px;
       box-shadow: 0 2px 6px 2px rgba($color-black, 0.3);
       display: block;
+      margin-bottom: 3rem;
 
       @include respond(phone) {
         float: none;
@@ -171,13 +172,6 @@
 
       @include respond(phone) {
         text-align: center;
-      }
-    }
-
-    &__bio {
-
-      @include respond(phone) {
-        text-align: justify;
       }
     }
   }
