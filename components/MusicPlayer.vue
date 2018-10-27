@@ -39,8 +39,8 @@
             type="range"
             class="volume-slider__input"
             min="0"
-            max="1"
-            step=".01">
+            max="100"
+            step="1">
         </div>
         <div
           v-if="time"
@@ -66,7 +66,7 @@
       return {
         playerIcon: ['fas', 'play'],
         music: '',
-        volume: .75,
+        volume: 75,
         currentTime: 0,
       }
     },
@@ -78,7 +78,7 @@
         return `${this.tune.id}-playhead`;
       },
       volumeIcon() {
-        if (!this.music || this.volume > .5) {
+        if (!this.music || this.volume > 50) {
           return ['fas', 'volume-up'];
         } else if (this.volume == 0) {
           return ['fas', 'volume-off'];
@@ -89,10 +89,14 @@
       time() {
         if (this.music) {
           const time = {};
-          const duration = this.music.duration || 43;
+          const duration = this.music.duration || 0;
           if (duration < 60) {
             time.duration = `0:${parseInt(duration)}`;
           }
+          if (duration < 10) {
+            time.duration = `0:0${parseInt(duration)}`;
+          }
+
           if (this.currentTime < 10) {
             time.current = `0:0${parseInt(this.currentTime)}`;
           } else {
@@ -104,9 +108,9 @@
     },
     watch: {
       volume(newVolume) {
-        this.music.volume = newVolume;
+        this.music.volume = newVolume / 100;
 
-        const percent = `${newVolume * 100}%`
+        const percent = `${newVolume}%`
         const slider = document.getElementById('volume-input');
         slider.style.background = `linear-gradient(to right, #777, #777 ${percent}, #ddd ${percent}, #ddd 100%`;
       },
