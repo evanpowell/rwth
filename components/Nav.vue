@@ -187,7 +187,7 @@
         text-decoration: none;
         text-transform: uppercase;
         color: $color-white;
-        transition: .25s ease;
+        // transition: .25s ease;
 
         &.nuxt-link-exact-active {
           font-weight: 700;

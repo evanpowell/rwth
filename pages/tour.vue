@@ -1,7 +1,14 @@
 <template>
   <div>
     <h1 class="title">Tour</h1>
-    <div class="shows">
+    <div
+      v-if="!isLoaded"
+      class="spinner-box">
+      <spinner/>
+    </div>
+    <div
+      v-else
+      class="shows">
       <ul
         v-if="shows.length"
         class="shows__list">
@@ -22,32 +29,49 @@
 
 <script>
   import TourListEntry from '../components/TourListEntry.vue';
+  import Spinner from '../components/Spinner.vue';
+  import axios from 'axios';
 
   export default {
     components: {
-      TourListEntry
+      TourListEntry,
+      Spinner
     },
-    asyncData({ req, app }) {
+    asyncData({ req }) {
       const host = req ? req.headers.host : window.location.host;
-      return app.$axios.$get(`http://${host}/api/shows`)
-        .then((shows) => {
-          return { shows };
-        })
-        .catch((err) => {
-          return { error: true }
-        })
+      return {
+        apiUrl: `http://${host}/api/shows`
+      };
     },
     data() {
       return {
         shows: [],
         error: false,
+        isLoaded: false,
+        apiUrl: ''
       };
+    },
+    created() {
+      axios.get(this.apiUrl)
+        .then(({ data }) => {
+          this.shows = data;
+          this.isLoaded = true;
+        })
+        .catch((err) => {
+          this.error = true;
+        })
     }
   }
 </script>
 
 <style lang="scss" scoped>
   @import './assets/scss/variables.scss';
+
+  .spinner-box {
+    margin: 0 auto;
+    width: 6rem;
+    padding-top: 5.5rem;
+  }
 
   .shows {
     width: 80rem;

@@ -200,7 +200,6 @@
 @import '../assets/scss/variables.scss';
 
   .music-player {
-    background-color: $color-white;
     padding: 2rem 3rem;
     margin-bottom: 4rem;
     border-radius: 3px;

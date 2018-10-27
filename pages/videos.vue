@@ -2,7 +2,12 @@
   <div>
     <h1 class="title">Videos</h1>
     <div
-      v-if="videos.length"
+      v-if="!isLoaded"
+      class="spinner-box">
+      <spinner/>
+    </div>
+    <div
+      v-else-if="videos.length"
       class="videos">
       <video-player
         :video="activeVideo"
@@ -22,32 +27,43 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   import VideoPlayer from '../components/VideoPlayer.vue';
   import VideoListEntry from '../components/VideoListEntry.vue';
+  import Spinner from '../components/Spinner.vue';
 
   export default {
     components: {
       VideoPlayer,
-      VideoListEntry
+      VideoListEntry,
+      Spinner
     },
     data() {
       return {
         videos: [],
         activeVideo: {},
-        autoplay: false
+        autoplay: false,
+        isLoaded: false,
+        hasError: false,
+        apiUrl: ''
       }
     },
-    asyncData({ req, app }) {
+    asyncData({ req }) {
       const host = req ? req.headers.host : window.location.host;
-      return app.$axios.$get(`http://${host}/api/videos`)
-        .then((videos) => {
-          return {
-            videos,
-            activeVideo: videos[0]
-          };
+      return {
+        apiUrl: `http://${host}/api/videos`
+      };
+    },
+    created() {
+      axios.get(this.apiUrl)
+        .then(({ data }) => {
+          this.videos = data;
+          this.activeVideo = data[0];
+          this.isLoaded = true;
         })
         .catch((err) => {
-          console.log(err);
+          this.hasError = true;
         })
     },
     methods: {
@@ -61,6 +77,12 @@
 
 <style lang="scss" scoped>
   @import '../assets/scss/variables.scss';
+
+  .spinner-box {
+    width: 6rem;
+    margin: 0 auto;
+    padding-top: 7rem;
+  }
 
   .list {
     background-color: $color-grey-light;
