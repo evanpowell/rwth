@@ -187,7 +187,7 @@
         text-decoration: none;
         text-transform: uppercase;
         color: $color-white;
-        // transition: .25s ease;
+        transition: .15s ease-in-out;
 
         &.nuxt-link-exact-active {
           font-weight: 700;
@@ -212,7 +212,7 @@
         transition: .25s ease;
 
         &:hover {
-          color: #748c81;
+          color: $color-secondary;
         }
       }
     }
