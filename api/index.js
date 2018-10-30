@@ -19,6 +19,7 @@ const app = express();
 app.post('/send', validateForm, (req, res) => {
   mg.messages().send(req.contactForm, (err, body) => {
     if (err) {
+      console.log(err);
       return res.status(500).send('mailgunError');
     }
     res.send('success');

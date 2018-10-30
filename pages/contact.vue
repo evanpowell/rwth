@@ -5,61 +5,101 @@
       class="contact-form"
       @submit="send">
       <div class="contact-form__group">
-        <label for="name">Your Name</label>
+        <label for="name">
+          Name
+          <span
+            v-if="error.name"
+            class="error-message">
+            *Name required
+          </span>
+        </label>
         <input
           id="name"
           v-model="sendForm.name"
+          :class="[{invalid : error.name}, 'contact-form__name--input', 'contact-input']"
           type="text"
-          class="contact-form__name--input contact-input"
-          required>
+          required
+          @blur="validateFieldOnBlur($event, 'name')"
+          @input="validateFieldOnInput($event, 'name')">
       </div>
       <div class="contact-form__group">
         <label for="email">
-          Your Email
+          Email
+          <span
+            v-if="error.email !== ''"
+            class="error-message">
+            {{ error.email === 'required' ? '*Email required' : '*Must be valid email' }}
+          </span>
         </label>
         <input
           id="email"
           v-model="sendForm.email"
+          :class="[{invalid : error.email}, 'contact-form__email--input', 'contact-input']"
           type="email"
-          class="contact-form__email contact-input"
-          required>
+          required
+          @blur="validateFieldOnBlur($event, 'email')"
+          @input="validateFieldOnInput($event, 'email')">
       </div>
       <div class="contact-form__group">
-        <label for="subject">Subject</label>
+        <label for="subject">
+          Subject
+          <span
+            v-if="error.subject"
+            class="error-message">
+            *Subject required
+          </span>
+        </label>
         <input
           id="subject"
           v-model="sendForm.subject"
+          :class="[{invalid : error.subject}, 'contact-form__subject--input', 'contact-input']"
           type="text"
-          class="contact-form__subject contact-input"
-          required>
+          required
+          @blur="validateFieldOnBlur($event, 'subject')"
+          @input="validateFieldOnInput($event, 'subject')">
       </div>
       <div class="contact-form__group">
-        <label for="message">Message</label>
+        <label for="message">
+          Message
+          <span
+            v-if="error.message"
+            class="error-message">
+            *Message required
+          </span>
+        </label>
         <textarea
           id="message"
           v-model="sendForm.message"
-          class="contact-form__message contact-input"
-          required/>
+          :class="[{invalid : error.message}, 'contact-form__message', 'contact-input']"
+          required
+          @blur="validateFieldOnBlur($event, 'message')"
+          @input="validateFieldOnInput($event, 'message')"/>
       </div>
       <input
+        :class="[{disabled: !isValidated}, 'contact-form__submit']"
+        :disabled="!isValidated"
         type="submit"
-        class="contact-form__submit"
         value="Send">
       <div
-        v-if="error !== ''"
+        v-if="isSending"
+        class="form-sent">
+        Sending...
+      </div>
+      <div
+        v-if="error.response"
         class="form-sent form-sent__error">
         <span>
           Error:
         </span>
-        {{ error }}
+        Something went wrong, please try again later.
       </div>
       <div
         v-if="isSuccess"
         class="form-sent form-sent__success">
         <span>
-          Thank you!
+          Message Sent!
         </span>
-        We'll get back to you shortly. :)
+        Thank you! We'll get back to you shortly. :)
       </div>
     </form>
   </div>
@@ -79,13 +119,33 @@
           subject: '',
           message: ''
         },
-        error: '',
-        isSuccess: false,
+        error: {
+          name: false,
+          email: '',
+          subject: false,
+          message: false,
+          response: false,
+        },
+        isSending: false,
+        isSuccess: false
+      }
+    },
+    computed: {
+      isValidated: function() {
+        for (let field in this.sendForm) {
+          if (!this.sendForm[field] || this.error[field]) {
+            return false;
+          } else if (field === 'email' && !this.validateEmail(this.sendForm[field])) {
+            return false;
+          }
+        }
+        return true;
       }
     },
     methods: {
       send(event) {
         event.preventDefault();
+        this.isSending = true;
         this.$axios({
           url: `http://${this.host}/api/send`, 
           method: 'post',
@@ -94,23 +154,67 @@
           }
         })
           .then(() => {
+            this.isSending = false;
             this.isSuccess = true;
-            this.error = '';
+            this.error = {
+              name: false,
+              email: '',
+              subject: false,
+              message: false,
+              response: false,
+            };
             this.sendForm.name = '';
             this.sendForm.email = '';
             this.sendForm.subject = '';
             this.sendForm.message = '';
           })
           .catch((err) => {
+            this.sending = false;
             const { data } = err.response;
             if (data === 'incomplete') {
-              this.error = 'Some fields were recognized as incomplete';
+              this.error.response = 'Some fields were recognized as incomplete';
             } else if (data === 'invalidEmail') {
-              this.error = 'Your email was recognized as invalid';
+              this.error.response = 'Your email was recognized as invalid';
             } else {
-              this.error = 'Something went wrong'
+              this.error.response = 'Something went wrong';
             }
           });
+      },
+      validateFieldOnBlur(e, field) {
+        if (field === 'name' && this.sendForm.name === '') {
+          this.error.name = true;
+        } else if (field === 'email') {
+          if (this.sendForm.email === '') {
+            this.error.email = 'required';
+          } else if (!this.validateEmail(this.sendForm.email)) {
+            this.error.email = 'invalid';
+          }
+        } else if (field === 'subject' && this.sendForm.subject === '') {
+          this.error.subject = true;
+        } else if (field === 'message' && this.sendForm.message === '') {
+          this.error.message = true;
+        }
+      },
+      validateFieldOnInput(e, field) {
+        this.$nextTick(() => {
+          if (field === 'name') {
+            this.error.name = this.sendForm.name === '';
+          } else if (field === 'email') {
+            if (this.sendForm.email === '') {
+              this.error.email = 'required';
+            } else if (this.validateEmail(this.sendForm.email)) {
+              this.error.email = '';
+            }
+          } else if (field === 'subject') {
+            this.error.subject = this.sendForm.subject === '';
+          } else if (field === 'message') {
+            this.error.message = this.sendForm.message === '';
+          }
+        });
+      },
+      validateEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
       }
     }
   }
@@ -129,8 +233,22 @@
 
     &:focus {
       outline: none;
-      border: 1.5px solid $color-primary-light;
+      border: 1.5px solid $color-grey;
     }
+  }
+
+  .invalid {
+    background-color: #ffebe3;
+
+    &:focus {
+      border: 1.5px solid $color-alert;
+    }
+  }
+
+  .error-message {
+    color: $color-alert;
+    font-size: 1.7rem;
+    padding-left: 1rem;
   }
 
   .contact-form {
@@ -169,6 +287,7 @@
       font-size: inherit;
       font-family: inherit;
       font-weight: 700;
+      width: 100%;
       text-transform: uppercase;
       padding: 1rem 2rem;
       border: none;
@@ -180,15 +299,13 @@
       backface-visibility: hidden;
 
       &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 3px 8px 2px rgba($color-black, 0.2);
+        background-color: $color-secondary-light;
         cursor: pointer;
       }
 
       &:active {
-        transform: translateY(-3px);
+        transform: translateY(3px);
         background-color: $color-secondary-dark;
-        box-shadow: 0 3px 6px 2px rgba($color-black, 0.2);
       }
 
       &:focus {
@@ -197,9 +314,17 @@
     }
   }
 
+  .disabled {
+    background-color: rgba($color-grey, .3) !important;
+    box-shadow: none;
+
+    &:hover {
+      cursor: auto;
+    }
+  }
+
   .form-sent {
-    display: inline-block;
-    padding-left: 2rem;
+    margin-top: 2rem;
     
     & span {
       font-weight: 700;
