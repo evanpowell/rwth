@@ -127,7 +127,7 @@
           response: false,
         },
         isSending: false,
-        isSuccess: false
+        isSuccess: false,
       }
     },
     computed: {
@@ -169,7 +169,7 @@
             this.sendForm.message = '';
           })
           .catch((err) => {
-            this.sending = false;
+            this.isSending = false;
             const { data } = err.response;
             if (data === 'incomplete') {
               this.error.response = 'Some fields were recognized as incomplete';
@@ -202,7 +202,9 @@
           } else if (field === 'email') {
             if (this.sendForm.email === '') {
               this.error.email = 'required';
-            } else if (this.validateEmail(this.sendForm.email)) {
+            } else if (this.error.email === 'invalid') {
+              this.error.email = this.validateEmail(this.sendForm.email) ? '' : 'invalid';
+            } else {
               this.error.email = '';
             }
           } else if (field === 'subject') {
