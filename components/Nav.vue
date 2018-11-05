@@ -21,19 +21,21 @@
           </nuxt-link>
         </div>
         <div class="side-nav__menu--social">
-          <a
+          <div
             v-for="(social, i) in socials"
             :key="i"
-            :href="social.link"
-            target="_blank"
-            class="side-nav__menu--social-icon">
-            <font-awesome-icon :icon="social.icon"/>
-          </a>
+            class="side-nav__menu--social-box">
+            <a
+              :href="social.link"
+              target="_blank"
+              class="side-nav__menu--social-icon">
+              <font-awesome-icon :icon="social.icon"/>
+            </a>
+            <span class="side-nav__menu--social-tooltip">{{ social.site }}</span>
+          </div>
         </div>
       </div>
     </nav>
-
-
     <nav class="top-nav">
       <div class="top-nav__content">
         <div class="top-nav__title top-nav--item">
@@ -54,8 +56,7 @@
         </div>
       </div>
     </nav>
-
-    <nav class="over-nav">    
+    <nav class="over-nav">
       <div :class="[{active: isActive}, 'over-nav__box']">
         <div class="over-nav__menu">
           <ul class="over-nav__menu--main">
@@ -67,7 +68,7 @@
                 :to="link[i]"
                 class="over-nav__menu--link">
                 {{ page }}
-              </nuxt-link>  
+              </nuxt-link>
             </li>
           </ul>
         </div>
@@ -90,9 +91,9 @@
           'contact'
         ],
         socials: [
-          { icon: ['fab', 'youtube'], link: 'https://www.youtube.com/channel/UCZ9ZJxRri6B6mqAdIEliJAA'},
-          { icon: ['fab', 'instagram'], link: 'https://www.instagram.com'},
-          { icon: ['fab', 'facebook'], link: 'https://www.facebook.com/Run-with-the-Hare-533410613772626/'}
+          { icon: ['fab', 'youtube'], link: 'https://www.youtube.com/channel/UCZ9ZJxRri6B6mqAdIEliJAA', site: 'YouTube'},
+          { icon: ['fab', 'instagram'], link: 'https://www.instagram.com', site: 'Instagram'},
+          { icon: ['fab', 'facebook'], link: 'https://www.facebook.com/Run-with-the-Hare-533410613772626/', site: 'Facebook'}
         ],
         isActive: false,
         active: 'over-nav__icon--active'
@@ -207,6 +208,10 @@
         justify-content: space-between;
       }
 
+      &--social-box {
+        position: relative;
+      }
+
       &--social-icon {
         color: white;
         transition: .25s ease;
@@ -214,6 +219,42 @@
         &:hover {
           color: $color-secondary;
         }
+      }
+
+      &--social-tooltip {
+        visibility: hidden;
+        opacity: 0;
+        width: 10rem;
+        background-color: $color-charcoal;
+        color: $color-white;
+        padding: 1rem 0;
+        border-radius: 4px;
+        font-size: 1.2rem;
+        text-align: center;
+    
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        top: -4rem;
+        left: -3.5rem;
+        z-index: 1;
+        transition: .2s ease;
+        transition-delay: .45s;
+        backface-visibility: hidden;
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border: 5px solid transparent;
+          border-top-color: $color-charcoal;
+        }
+      }
+
+      &--social-box:hover &--social-tooltip {
+        visibility: visible;
+        opacity: 1;
       }
     }
   }
