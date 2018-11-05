@@ -150,6 +150,7 @@
     &__logo {
       border-bottom: 3px solid #748c81;
       position: relative;
+      min-height: 1px;
       
       &--image {
 
