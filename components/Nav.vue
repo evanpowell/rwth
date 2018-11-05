@@ -187,7 +187,7 @@
         display: block;
         text-decoration: none;
         text-transform: uppercase;
-        color: $color-white;
+        color: $color-offwhite;
         transition: .15s ease-in-out;
 
         &.nuxt-link-exact-active {
@@ -213,11 +213,11 @@
       }
 
       &--social-icon {
-        color: white;
+        color: $color-offwhite;
         transition: .25s ease;
 
         &:hover {
-          color: $color-secondary;
+          color: $color-secondary-light;
         }
       }
 
@@ -229,15 +229,15 @@
         color: $color-white;
         padding: 1rem 0;
         border-radius: 4px;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         text-align: center;
     
         /* Position the tooltip text - see examples below! */
         position: absolute;
-        top: -4rem;
+        top: -4.4rem;
         left: -3.5rem;
         z-index: 1;
-        transition: .2s ease;
+        transition: .3s ease;
         transition-delay: .45s;
         backface-visibility: hidden;
 
@@ -254,8 +254,18 @@
 
       &--social-box:hover &--social-tooltip {
         visibility: visible;
-        opacity: 1;
+        animation: fadeIn .25s ease .4s forwards;
       }
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
     }
   }
 
