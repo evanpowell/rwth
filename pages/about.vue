@@ -14,7 +14,7 @@
     <div class="members">
       <img
         class="members__photo"
-        src="https://dummyimage.com/500x700/926d3c/1c4d38"
+        src="../assets/images/bio-nicolle.png"
         alt="Nicolle Fig">
       <div class="members__info">
         <h2 class="members__name">Nicolle Fig</h2>
@@ -33,7 +33,7 @@
     <div class="members">
       <img
         class="members__photo"
-        src="https://dummyimage.com/500x700/926d3c/1c4d38"
+        src="../assets/images/bio-jonathan.png"
         alt="Jonathan Milton">
       <div class="members__info">
         <h2 class="members__name">Jonathan Milton</h2>
@@ -49,7 +49,7 @@
     <div class="members">
       <img
         class="members__photo"
-        src="https://dummyimage.com/500x700/926d3c/1c4d38"
+        src="../assets/images/bio-evan.png"
         alt="Evan Powell">
       <div class="members__info">
         <h2 class="members__name">Evan Powell</h2>
@@ -80,7 +80,7 @@
     width: 100%;
     height: 0;
     padding-top: 56.25%;
-    background: url('https://dummyimage.com/1600x900/926d3c/1c4d38');
+    background: url('../assets/images/rwth-about.png');
     background-size: cover;
     border-radius: 3px;
     box-shadow: 0 2px 6px 3px rgba($color-black, 0.3);
