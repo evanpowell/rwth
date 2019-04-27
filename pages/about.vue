@@ -19,16 +19,14 @@
       <div class="members__info">
         <h2 class="members__name">Nicolle Fig</h2>
         <p class="members__bio">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Leo duis
-          ut diam quam nulla. Risus at ultrices mi tempus imperdiet nulla
-          malesuada. Nullam non nisi est sit amet facilisis magna etiam tempor.
-          Leo integer malesuada nunc vel risus commodo viverra maecenas. Et
-          egestas quis ipsum suspendisse ultrices gravida dictum fusce. Faucibus
-          interdum posuere lorem ipsum dolor sit amet consectetur.
-          Mauris commodo quis imperdiet massa. Tortor at auctor urna nunc id
-          cursus metus aliquam. Et netus et malesuada fames ac turpis egestas.
-          Velit dignissim sodales ut eu.
+          Nicolle Fig moved to Ireland from the USA at age 18. She quickly developed a passion for Irish traditional music while attending the University of Limerick, where she studied
+          under many renowned masters of the music. She graduated with first class honours from UL in 2016. She earned a Bachelor of Arts in Irish Music and Dance, specialising in bodhrán,
+          traditional singing, and button accordion. Nicolle also studied classical singing at the university level and has appeared in numerous musical theatre performances. A former
+          member of the Irish Chamber Orchestra choir, she has also performed at the Concert Hall in Limerick and played in over 30 festivals in Ireland. In 2017, she moved to Austin,
+          where she performed and recorded with bluegrass band Three Quarter Moon, had guest appearances on KOOP radio, and performed in concert with Gourisankar Karmakar. Nicolle is an
+          in-demand teacher with over 10 years’ experience teaching in Mexico, Ireland, and the USA. Her success as a teacher is reflected by her large following and viewership on YouTube,
+          where she has developed a strong professional reputation as a welcoming and skillful teacher. Her distinctive, lyric style of playing has made her a highly sought-after session
+          musician and accompanist, both at home and abroad.
         </p>
       </div>   
     </div>
@@ -40,16 +38,11 @@
       <div class="members__info">
         <h2 class="members__name">Jonathan Milton</h2>
         <p class="members__bio">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Leo duis
-          ut diam quam nulla. Risus at ultrices mi tempus imperdiet nulla
-          malesuada. Nullam non nisi est sit amet facilisis magna etiam tempor.
-          Leo integer malesuada nunc vel risus commodo viverra maecenas. Et
-          egestas quis ipsum suspendisse ultrices gravida dictum fusce. Faucibus
-          interdum posuere lorem ipsum dolor sit amet consectetur.
-          Mauris commodo quis imperdiet massa. Tortor at auctor urna nunc id
-          cursus metus aliquam. Et netus et malesuada fames ac turpis egestas.
-          Velit dignissim sodales ut eu.
+          Jonathan Milton is a performer, composer, and arranger of traditional and modern instrumental music. A veteran Irish flute and guitar player in the Austin scene, he’s an in-demand
+          session musician, having played on records ranging from traditional Irish to singer-songwriter to rockabilly to electronic pop. Jonathan’s solo album, “Just One More,” was released
+          in 2013 to critical acclaim. He’s also a former member of Aidan, a legendary traditional Irish band which toured Ireland on the success of their album, “The Time is Right,” in 2013.
+          Over the following years, he composed a large collection of music for future projects. Jonathan met Nicolle and Evan in 2017, and they formed Run with the Hare shortly thereafter.
+          Aside from performing and recording, Jonathan continues to teach and write about approaches to flute, whistle, and guitar playing for beginner to advanced students.
         </p>
       </div>   
     </div>
@@ -61,16 +54,12 @@
       <div class="members__info">
         <h2 class="members__name">Evan Powell</h2>
         <p class="members__bio">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Leo duis
-          ut diam quam nulla. Risus at ultrices mi tempus imperdiet nulla
-          malesuada. Nullam non nisi est sit amet facilisis magna etiam tempor.
-          Leo integer malesuada nunc vel risus commodo viverra maecenas. Et
-          egestas quis ipsum suspendisse ultrices gravida dictum fusce. Faucibus
-          interdum posuere lorem ipsum dolor sit amet consectetur.
-          Mauris commodo quis imperdiet massa. Tortor at auctor urna nunc id
-          cursus metus aliquam. Et netus et malesuada fames ac turpis egestas.
-          Velit dignissim sodales ut eu.
+          Evan Powell is an award-winning pianist, keyboardist, and Irish flutist with a multifaceted career spanning several genres, including jazz, neo-soul, reggae, indie-rock, and folk.
+          He holds first place senior titles for solo piano, accompaniment, and composition from the Comhaltas Mid-Atlantic Fleadh Cheoil (2012). Also an accomplished educator, he has given
+          multiple lectures on jazz performance and improvisation in the states and abroad, and is a former instructor of the Irish ensemble at his alma mater, Florida State University. Growing
+          up in South Florida, he was inspired towards improvisation by his parents’ jazz records, and was heavily influenced by the intricate harmonic voicings of jazz legends Bill Evans,
+          Oscar Peterson, and Keith Jarrett. His unique style of backing subtly reflects his jazz origins, and is as much influenced by Irish guitar as it is Irish piano, taking queue from the
+          rhythms and harmonies of such players as Paul Brady and Paul McSherry. Apart from his ongoing musical career, Evan also works as a software engineer for the state of Texas.
         </p>
       </div>   
     </div>
