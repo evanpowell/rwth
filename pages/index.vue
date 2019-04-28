@@ -1,40 +1,82 @@
 <template>
-  <div>
-    <div class="home">
-      <h1>Run with the Hare</h1>
-      <h3>
-        Welcome to our website! We are Run with the Hare,
-        a traditional Irish music trio based out of Austin, Texas.
-      </h3>
-      <h3 class="alert">
-        Our site is currently under construction. Check
-        back with us soon! :)
-      </h3>
+  <div :class="homeClassObject">
+    <div class="home__logo">
+      <img
+        src="../assets/images/home-title.png"
+        alt="Run with the Hare">
     </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  data: function() {
+    return {
+      isLandscape: true,
+      landscapeClass: 'home__landscape',
+      portraitClass: 'home__portrait'
+    }
+  },
+  computed: {
+    homeClassObject: function() {
+      return {
+        home: true,
+        'home__landscape': this.isLandscape,
+        'home__portrait': !this.isLandscape
+      }
+    }
+  },
+  mounted: function() {
+    this.getIsLandscape();
+    window.addEventListener('resize', this.getIsLandscape);
+  },
+  methods: {
+    getIsLandscape: function() {
+      const content = document.getElementsByClassName('content')[0];
+      this.isLandscape = content.offsetHeight < content.offsetWidth;
+    }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
   .home {
     text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
 
-    & h1 {
-      padding-bottom: 2rem;
+    &__landscape {
+      background-image: url('../assets/images/rwth-home.png');
     }
 
-    & h3 {
-      padding: 0 4rem;
-      padding-bottom: 1.5rem;
+    &__portrait {
+      background-image: url('../assets/images/rwth-home-portrait.png');
     }
 
-    & .alert {
-      color: orangered;
+    &__logo {
+      width: 55rem;
+      max-width: 90%;
+      height: 0;
+      padding-bottom: 33.333333%;
+      margin: 0 auto;
+      margin-top: 5rem;
+      position: relative;
+
+      @media screen and (max-height: 500px) {
+        width: 30rem;
+      }
+
+      & img {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     }
   }
 </style>

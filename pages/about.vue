@@ -80,7 +80,7 @@
     width: 100%;
     height: 0;
     padding-top: 56.25%;
-    background: url('../assets/images/rwth-about.png');
+    background-image: url('../assets/images/rwth-about.png');
     background-size: cover;
     border-radius: 3px;
     box-shadow: 0 2px 6px 3px rgba($color-black, 0.3);
