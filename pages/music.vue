@@ -26,6 +26,7 @@
   import bretonTuneUrl from '../assets/sounds/bretonTuneSample.mp3';
   import nightVisitingUrl  from '../assets/sounds/nightVisitingSongSample.mp3';
   import yellowWattleUrl from '../assets/sounds/yellowWattleSetSample.mp3';
+  import flatWaterFranUrl from '../assets/sounds/flatwaterFran.mp3';
 
   export default {
     components: {
@@ -51,6 +52,12 @@
             id: 'yellow-wattle',
             source: yellowWattleUrl,
             duration: 44.74775
+          },
+          {
+            title: 'Flatwater Fran',
+            id: 'flatwater-fran',
+            source: flatWaterFranUrl,
+            duration: 62.037484
           }
         ],
         activeTune: {}
