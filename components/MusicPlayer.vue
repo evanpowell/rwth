@@ -88,21 +88,25 @@
       },
       time() {
         if (this.music) {
-          const time = {};
-          const duration = this.music.duration || 0;
-          if (duration < 60) {
-            time.duration = `0:${parseInt(duration)}`;
-          }
-          if (duration < 10) {
-            time.duration = `0:0${parseInt(duration)}`;
+          const duration = this.music.duration ? Math.floor(+this.music.duration) : 0;
+          const currentTime = Math.floor(this.currentTime);
+          const currentMinutes = Math.floor(currentTime / 60);
+          const durationMinutes = Math.floor(duration / 60);
+          let currentSeconds = currentTime % 60;
+          let durationSeconds = duration % 60;
+
+          if (durationSeconds < 10) {
+            durationSeconds = `0${durationSeconds}`;
           }
 
-          if (this.currentTime < 10) {
-            time.current = `0:0${parseInt(this.currentTime)}`;
-          } else {
-            time.current = `0:${parseInt(this.currentTime)}`;
+          if (currentSeconds < 10) {
+            currentSeconds = `0${currentSeconds}`;
           }
-          return time;
+
+          return {
+            duration: `${durationMinutes}:${durationSeconds}`,
+            current: `${currentMinutes}:${currentSeconds}`
+          }
         }
       },
     },
